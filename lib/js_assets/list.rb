@@ -14,7 +14,7 @@ module JsAssets
           next unless matches_filter(@allow, logical_path, filename)
           if ::Rails.env.development? || ::Rails.env.test?
             project_assets[logical_path] = '/assets/' + logical_path
-          elsif ::Rails.env.production?
+          else
             project_assets[logical_path] = '/assets/' + ::Rails.application.assets[logical_path].digest_path
           end
         end
@@ -23,7 +23,7 @@ module JsAssets
     end
 
   protected
-    # from 
+    # from
     # https://github.com/sstephenson/sprockets/blob/master/lib/sprockets/base.rb:418
     def self.matches_filter(filters, logical_path, filename)
       return true if filters.nil? || filters.empty?
